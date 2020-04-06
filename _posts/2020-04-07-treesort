@@ -1,0 +1,112 @@
+---
+title: 트리 순회 알고리즘(전위, 중위, 후위 순회)
+categories: 
+  - Data Structure & Algorithms
+last_modified_at: 2020-04-07T13:00:00+09:00
+use_math: true
+---
+
+이번에는 글에서는 트리 순회 알고리즘인 전위(preorder), 중위(inorder), 후위(postorder) 순회에 대해서 알아보도록 하겠습니다. 아래 트리를 예시로 각 알고리즘 간에 차이를 비교해보도록 하겠습니다.
+
+##전위 순회(preorder traversal)
+
+루트 노드에서 시작해서 루트노드-왼쪽 서브트리-오른쪽 서브트리 순으로 순회하는 방식입니다. 아래 예시 트리에 따라 전위 순회 방식을 적용해 보겠습니다.
+
+![ex_screenshot](https://i.imgur.com/P7lF0jY.png)
+
+```
+F B A D C E G I H (root, left, right)
+```
+
+### 전위 순회 의사코드
+
+전위 순회 알고리즘에 대해서 재귀함수를 이용한 의사코드와 스택을 이용한 의사코드를 각각 알아보도록 하겠습니다
+
+```
+Preorder-TREE-Recursion(x) // 재귀함수
+  if x != NILP
+    print x.key // 루트 노드를 출력
+    Preorder-TREE-Recursion(x.left) // 왼쪽 노드 방문
+    Preorder-TREE-Recursion(x.right) // 오른쪽 노드 방문
+    
+Preorder-TREE-Stack(S, x)
+  PUSH(S, x.root) //  
+  while not STACK-EMPTY(S)
+    print POP(S) // 최상단 노드를 출력
+    PUSH(S, x.right) // 오른쪽 노드 있다면 먼저 스택에 입력
+    PUSH(S, x.left) // 왼쪽 노드 있다면 그 다음 입력(스택은 후입선출이므로 먼저 출력됨)
+  
+```
+
+##중위 순회(inorder traversal)
+
+루트 노드에서 시작해서 왼쪽 서브트리-루트노드-오른쪽 서브트리 순으로 순회하는 방식입니다. 아래 예시 트리에 따라 중위 순회 방식을 적용해 보겠습니다.
+
+![ex_screenshot](https://i.imgur.com/P7lF0jY.png)
+
+```
+A, B, C, D, E, F, G, H, I (left, root, right)
+```
+
+
+### 중위 순회 의사코드
+
+중위 순회 알고리즘에 대해서 재귀함수를 이용한 의사코드와 스택을 이용한 의사코드를 각각 알아보도록 하겠습니다
+
+```
+Preorder-TREE-Recursion(x) // 재귀함수
+  if x not NILP
+    Preorder-TREE-Recursion(x.left) // 왼쪽 노드 방문
+    print x.key // 루트 노드를 출력
+    Preorder-TREE-Recursion(x.right) // 오른쪽 노드 방문
+    
+Preorder-TREE-Stack(S, x)
+  PUSH(S, x.root) //  
+  while x.root is not null
+    PUSH(S, x)
+    x = x.left
+  while not STACK-EMPTY(S)
+    x = POP(S)
+    print x.data
+    x = x.right
+  
+```
+
+
+##후위 순회(postorder traversal)
+
+루트 노드에서 시작해서 왼쪽 서브트리-오른쪽 서브트리-루트노드 순으로 순회하는 방식입니다. 아래 예시 트리에 따라 후위 순회 방식을 적용해 보겠습니다.
+
+![ex_screenshot](https://i.imgur.com/P7lF0jY.png)
+
+```
+A C E D B H I G F (left, right, root)
+```
+
+
+### 후위 순회 의사코드
+
+중위 순회 알고리즘에 대해서 재귀함수를 이용한 의사코드를 각각 알아보도록 하겠습니다
+
+```
+Preorder-TREE-Recursion(x) // 재귀함수
+  if x not NILP
+    Preorder-TREE-Recursion(x.left) // 왼쪽 노드 방문
+    Preorder-TREE-Recursion(x.right) // 오른쪽 노드 방문
+    print x.key // 루트 노드를 출력
+
+    
+Preorder-TREE-Stack(S, x)
+  PUSH(S, x.root) //  
+  while x is not null
+    PUSH(S, x.right)
+    PUSH(S, x.left)
+    x = x.left
+  while not STACK-EMPTY(S)
+  	x = POP(S)
+    if x.left exist
+      PUSH(S, x)
+      x = x.left
+    if x.right not exist
+      print x.data
+```
