@@ -30,7 +30,7 @@ Preorder-TREE-Recursion(x) // 재귀함수
     Preorder-TREE-Recursion(x.right) // 오른쪽 노드 방문
     
 Preorder-TREE-Stack(S, x)
-  PUSH(S, x.root) //  
+  PUSH(S, x) //  
   while not STACK-EMPTY(S)
     print POP(S) // 최상단 노드를 출력
     PUSH(S, x.right) // 오른쪽 노드 있다면 먼저 스택에 입력
@@ -60,16 +60,14 @@ Preorder-TREE-Recursion(x) // 재귀함수
     print x.key // 루트 노드를 출력
     Preorder-TREE-Recursion(x.right) // 오른쪽 노드 방문
     
-Preorder-TREE-Stack(S, x)
-  PUSH(S, x.root) //  
-  while x.root is not null
+Preorder-TREE-Stack(S, x)  
+  while x.left is not null
     PUSH(S, x)
     x = x.left
   while not STACK-EMPTY(S)
     x = POP(S)
     print x.data
     x = x.right
-  
 ```
 
 
@@ -99,8 +97,7 @@ Preorder-TREE-Recursion(x) // 재귀함수
 Preorder-TREE-Stack(S, x)
   PUSH(S, x.root) //  
   while x is not null
-    PUSH(S, x.right)
-    PUSH(S, x.left)
+    PUSH(S, x)
     x = x.left
   while not STACK-EMPTY(S)
   	x = POP(S)
